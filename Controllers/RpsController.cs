@@ -47,25 +47,25 @@ public class RpsController : ControllerBase
     */
 
     [HttpGet("{id}")]
-    public IActionResult Stats(int id)
+    public async Task<IActionResult> Stats(int id)
     {
         _logger.LogInformation("Getting player stats");
-        _rpsService.GetPlayerStats(id);
+        var result = await _rpsService.GetPlayerStats(id);
         _logger.LogInformation("Got player stats");
-        return Ok();
+        return Ok(result);
     }
 
     [HttpGet]
-    public IActionResult AllStats()
+    public async Task<IActionResult> AllStats()
     {
         _logger.LogInformation("Getting all player stats");
-        _rpsService.GetAllPlayerStats();
+        var result = await _rpsService.GetAllPlayerStats();
         _logger.LogInformation("Got all player stats");
-        return Ok();
+        return Ok(result);
     }
 
     [HttpPost]
-    public IActionResult PlayGame([FromBody] PlayGameRequest request)
+    public async Task<IActionResult> PlayGame([FromBody] PlayGameRequest request)
     {
         if (request == null)
         {
@@ -77,10 +77,10 @@ public class RpsController : ControllerBase
             return BadRequest("Invalid action");
         }
 
-        _rpsService.PlayGame(request.PlayerId, request.PlayerAction);
-        return Ok();
+        var result = _rpsService.PlayGame(request.PlayerId, request.PlayerAction);
+        return Ok(result);
     }
-    
+
     [HttpPost]
     public IActionResult ResetStats(int playerId)
     {

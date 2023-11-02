@@ -11,6 +11,6 @@ public interface IRpsService
     /*Task<GameResult> GetPlayerStats(int id);*/
     Task<List<GameResult>> GetAllPlayerStats();
     Task<PlayerStats> GetPlayerStats(int id);
-    void PlayGame(int playerId, RpsAction playerAction);
+    PlayResult PlayGame(int playerId, RpsAction playerAction);
     void ResetStats(int playerId);
 }

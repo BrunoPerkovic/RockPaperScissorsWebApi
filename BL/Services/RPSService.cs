@@ -178,7 +178,7 @@ public class RpsService : IRpsService
         });
         _appDbContext.SaveChanges();
     }
-    
+
     public async Task<List<GameResult>> GetAllPlayerStats()
     {
         var gameResults = await _appDbContext.GameResults.ToListAsync();
@@ -205,7 +205,7 @@ public class RpsService : IRpsService
     }
 
 
-    public void PlayGame(int playerId, RpsAction humanAction)
+    public PlayResult PlayGame(int playerId, RpsAction humanAction)
     {
         var gameResult = _appDbContext.GameResults.FirstOrDefault(gr => gr.Id == playerId);
 
@@ -240,6 +240,14 @@ public class RpsService : IRpsService
         }
 
         _appDbContext.SaveChanges();
+
+        return new PlayResult
+        {
+            PlayerAction = humanAction,
+            ComputerAction = computerAction,
+            Result = PlayerWin(humanAction, computerAction) ? "Win" : PlayerLose(humanAction, computerAction) ? "Lose"
+                : "Draw"
+        };
     }
 
     public async void ResetStats(int playerId)
