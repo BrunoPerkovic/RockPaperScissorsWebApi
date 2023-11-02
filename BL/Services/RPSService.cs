@@ -178,29 +178,7 @@ public class RpsService : IRpsService
         });
         _appDbContext.SaveChanges();
     }
-
-
-    /*public async Task<GameResult> GetPlayerStats(int id)
-    {
-        var gameResult = await _appDbContext.GameResults
-            .Where(gr => gr.PlayerId == id)
-            .FirstOrDefaultAsync();
-
-        var playerStats = new GameResult
-        {
-            PlayerId = gameResult.PlayerId,
-            Wins = gameResult.Wins,
-            Losses = gameResult.Losses,
-            Draws = gameResult.Draws,
-        };
-
-        _logger.LogInformation(
-            $"Player stats: Wins: {playerStats.Wins} Losses:{playerStats.Losses} Draws:{playerStats.Draws}");
-
-        return playerStats;
-    }
-    */
-
+    
     public async Task<List<GameResult>> GetAllPlayerStats()
     {
         var gameResults = await _appDbContext.GameResults.ToListAsync();
